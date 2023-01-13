@@ -1,0 +1,59 @@
+.flashcard-box {
+  width: 50%;
+  min-height: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  background-color: rgb(176, 202, 202);
+  border-radius: 20px;
+}
+
+.question {
+  font-size: 20px;
+}
+
+.flashcard-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 17px;
+}
+
+.answerInputbox {
+  height: 40px;
+  width: 80%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.form {
+  width: 90%;
+}
+
+.form-flex {
+  display: flex;
+}
+
+.submit-button {
+  max-height: 40px;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+/* Small devices (screens, 992px and down) */
+@media only screen and (max-width: 990px) {
+  .flashcard-box {
+    width: 95%;
+    min-height: 150px;
+  }
+
+  .answerInputbox {
+    width: 95%;
+  }
+
+  .flashcard-flex {
+    padding: 5px;
+  }
+}
