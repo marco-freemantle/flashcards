@@ -1,30 +1,66 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  italianDict,
-  practiceDict,
-  coloursDict,
-  numbersDict,
+  italianDictImp,
+  practiceDictImp,
+  coloursDictImp,
+  numbersDictImp,
 } from "./dictionaries";
 import { useState, useEffect } from "react";
 import Flipper from "./Components/Flipper";
+import { initializeApp } from "firebase/app";
+import * as utilities from "./Utilities/FirestoreUtilities";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBtORfRYLXs3sC1tMviIhUYjM90AfhpgM8",
+  authDomain: "flashcard-79794.firebaseapp.com",
+  projectId: "flashcard-79794",
+  storageBucket: "flashcard-79794.appspot.com",
+  messagingSenderId: "704397522677",
+  appId: "1:704397522677:web:1b2be225c467ff0c5df7bc",
+  measurementId: "G-B6FBZE6C7E",
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
 function App() {
+  //Score counters
   const [incorrect, setIncorrect] = useState(0);
   const [correct, setCorrect] = useState(0);
+  //All previous questions
   const [prevNums, setPrevNums] = useState([]);
-  const [currentDict, setCurrentDict] = useState(italianDict);
+  //Current dict in use
+  const [currentDict, setCurrentDict] = useState(italianDictImp);
+  //Current question and answers
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+
+  //Some more states
+  const [generalDict, setGeneralDict] = useState(italianDictImp);
+  const [coloursDict, setColoursDict] = useState(coloursDictImp);
+  const [numbersDict, setNumbersDict] = useState(numbersDictImp);
+  const [practiceDict, setPracticeDict] = useState(practiceDictImp);
 
   useEffect(() => {
     getRandom();
   }, [currentDict]);
 
+  utilities.getAllDict().then((data) => {
+    setGeneralDict(data);
+  });
+  utilities.getColoursDict().then((data) => {
+    setColoursDict(data);
+  });
+  utilities.getNumbersDict().then((data) => {
+    setNumbersDict(data);
+  });
+  utilities.getPracticeDict().then((data) => {
+    setPracticeDict(data);
+  });
+
   function getRandom(val) {
     let num = Math.floor(Math.random() * (Object.keys(currentDict).length - 0));
-    console.log(Object.keys(currentDict).length);
-    console.log(num);
 
     while (prevNums.includes(num)) {
       num = Math.floor(Math.random() * (Object.keys(currentDict).length - 0));
@@ -75,7 +111,7 @@ function App() {
         <button
           className="card-selection-button"
           onClick={() => {
-            changeDict(italianDict);
+            changeDict(generalDict);
           }}
         >
           All

@@ -1,4 +1,4 @@
-export let italianDict = {
+export let italianDictImp = {
   Manners: "Buone Maniere",
   Please: "Per favore",
   "Thankyou very much": "Grazie Milli",
@@ -150,7 +150,7 @@ export let italianDict = {
   "I have prepared": "ho preparato",
 };
 
-export let numbersDict = {
+export let numbersDictImp = {
   1: "Uno",
   2: "Due",
   3: "Tre",
@@ -181,7 +181,7 @@ export let numbersDict = {
   100: "Cento",
 };
 
-export let coloursDict = {
+export let coloursDictImp = {
   Colours: "Colori",
   Blue: "Blu",
   Red: "Rosso/a",
@@ -196,7 +196,7 @@ export let coloursDict = {
   Orange: "Arancione",
 };
 
-export let practiceDict = {
+export let practiceDictImp = {
   Typical: "Typico",
   Exotic: "exotico",
   "It is": "E",
