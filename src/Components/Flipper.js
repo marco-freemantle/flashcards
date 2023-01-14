@@ -86,6 +86,22 @@ function Flipper(props) {
             Correct
           </Button>
         </div>
+        <div className="buttons-container">
+          <Button
+            variant="warning"
+            onClick={moveToAll}
+            className="switchbutton"
+          >
+            Move to All
+          </Button>
+          <Button
+            variant="warning"
+            onClick={moveToPractice}
+            className="switchbutton"
+          >
+            Move to Practice
+          </Button>
+        </div>
       </div>
     </ReactCardFlip>
   );

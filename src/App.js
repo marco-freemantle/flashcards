@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import Flipper from "./Components/Flipper";
 import { initializeApp } from "firebase/app";
 import * as utilities from "./Utilities/FirestoreUtilities";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBtORfRYLXs3sC1tMviIhUYjM90AfhpgM8",
@@ -43,6 +45,10 @@ function App() {
   const [numbersDict, setNumbersDict] = useState(numbersDictImp);
   const [practiceDict, setPracticeDict] = useState(practiceDictImp);
 
+  //State for adding new card
+  const [englishTerm, setEnglishTerm] = useState("");
+  const [italianTerm, setItalianTerm] = useState("");
+
   useEffect(() => {
     getRandom();
   }, [currentDict]);
@@ -61,8 +67,6 @@ function App() {
       setPracticeDict(data);
     });
   }, []);
-
-  console.log(currentDict);
 
   function getRandom(val) {
     let num = Math.floor(Math.random() * (Object.keys(currentDict).length - 0));
@@ -97,24 +101,53 @@ function App() {
   function moveToAll() {
     if (dictName === "Practice") {
       if (generalDict[question] === undefined) {
+        //Remove question from practice
+        let practiceCopy = practiceDict;
+        delete practiceCopy[question];
+        setPracticeDict(practiceCopy);
+        //Add question to general
+        let generalCopy = generalDict;
+        generalCopy[question] = answer;
+        setGeneralDict(generalCopy);
+      } else {
+        let practiceCopy = practiceDict;
+        delete practiceCopy[question];
+        setPracticeDict(practiceCopy);
       }
+      //Update firestore here
+      utilities.updateAllDicts(practiceDict, generalDict);
     }
-    //If we are in practice deck
-    //If current question is not in all
-    //Remove from practice
-    //Add to all
-    //else
-    //remove from practice
   }
 
   function moveToPractice() {
-    //If we are not in practice
-    //If question is not in practice deck
-    //Add to practice
+    if (dictName !== "Practice") {
+      if (practiceDict[question] === undefined) {
+        let practiceCopy = practiceDict;
+        practiceCopy[question] = answer;
+        setPracticeDict(practiceCopy);
+      }
+      //Update firestore here
+      utilities.updateAllDicts(practiceDict, generalDict);
+    }
   }
 
-  function addNewCard() {
+  function addNewCard(event) {
+    event.preventDefault();
     //Add card to all and practice
+    let practiceCopy = practiceDict;
+    practiceCopy[englishTerm] = italianTerm;
+    setPracticeDict(practiceCopy);
+
+    let generalCopy = generalDict;
+    generalCopy[englishTerm] = italianTerm;
+    setGeneralDict(generalCopy);
+
+    //Update firestore here
+    utilities.updateAllDicts(practiceDict, generalDict).then(() => {
+      document.getElementById("newCardForm").reset();
+      setEnglishTerm("");
+      setItalianTerm("");
+    });
   }
 
   return (
@@ -172,6 +205,24 @@ function App() {
           moveToAll={moveToAll}
           moveToPractice={moveToPractice}
         />
+
+        <Form onSubmit={addNewCard} id="newCardForm" className="newCardForm">
+          <Form.Control
+            type="text"
+            placeholder="Enter English term"
+            onChange={(e) => setEnglishTerm(e.target.value)}
+            min={1}
+          />
+          <Form.Control
+            type="text"
+            placeholder="Enter Italian translation"
+            onChange={(e) => setItalianTerm(e.target.value)}
+            min={1}
+          />
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
       </div>
     </div>
   );
