@@ -21,6 +21,14 @@ function Flipper(props) {
     props.getNewCard("correct");
   }
 
+  function moveToAll() {
+    props.moveToAll();
+  }
+
+  function moveToPractice() {
+    props.moveToPractice();
+  }
+
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
       <div className="flashcard-front">
@@ -42,6 +50,22 @@ function Flipper(props) {
             Correct
           </Button>
         </div>
+        <div className="buttons-container">
+          <Button
+            variant="warning"
+            onClick={moveToAll}
+            className="switchbutton"
+          >
+            Move to All
+          </Button>
+          <Button
+            variant="warning"
+            onClick={moveToPractice}
+            className="switchbutton"
+          >
+            Move to Practice
+          </Button>
+        </div>
       </div>
 
       <div className="flashcard-front">
@@ -55,7 +79,7 @@ function Flipper(props) {
             onClick={handleClick}
             className="flipButton"
           >
-            Click to flip
+            Flip
           </Button>
 
           <Button variant="success" onClick={correct} className="flipButton">

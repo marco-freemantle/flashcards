@@ -32,6 +32,7 @@ function App() {
   const [prevNums, setPrevNums] = useState([]);
   //Current dict in use
   const [currentDict, setCurrentDict] = useState(italianDictImp);
+  const [dictName, setDictName] = useState("All");
   //Current question and answers
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
@@ -46,18 +47,22 @@ function App() {
     getRandom();
   }, [currentDict]);
 
-  utilities.getAllDict().then((data) => {
-    setGeneralDict(data);
-  });
-  utilities.getColoursDict().then((data) => {
-    setColoursDict(data);
-  });
-  utilities.getNumbersDict().then((data) => {
-    setNumbersDict(data);
-  });
-  utilities.getPracticeDict().then((data) => {
-    setPracticeDict(data);
-  });
+  useEffect(() => {
+    utilities.getAllDict().then((data) => {
+      setGeneralDict(data);
+    });
+    utilities.getColoursDict().then((data) => {
+      setColoursDict(data);
+    });
+    utilities.getNumbersDict().then((data) => {
+      setNumbersDict(data);
+    });
+    utilities.getPracticeDict().then((data) => {
+      setPracticeDict(data);
+    });
+  }, []);
+
+  console.log(currentDict);
 
   function getRandom(val) {
     let num = Math.floor(Math.random() * (Object.keys(currentDict).length - 0));
@@ -89,6 +94,29 @@ function App() {
     setPrevNums([]);
   }
 
+  function moveToAll() {
+    if (dictName === "Practice") {
+      if (generalDict[question] === undefined) {
+      }
+    }
+    //If we are in practice deck
+    //If current question is not in all
+    //Remove from practice
+    //Add to all
+    //else
+    //remove from practice
+  }
+
+  function moveToPractice() {
+    //If we are not in practice
+    //If question is not in practice deck
+    //Add to practice
+  }
+
+  function addNewCard() {
+    //Add card to all and practice
+  }
+
   return (
     <div className="App">
       <div className="card-selection">
@@ -96,6 +124,7 @@ function App() {
           className="card-selection-button"
           onClick={() => {
             changeDict(numbersDict);
+            setDictName("Numbers");
           }}
         >
           Numbers
@@ -104,6 +133,7 @@ function App() {
           className="card-selection-button"
           onClick={() => {
             changeDict(coloursDict);
+            setDictName("Colours");
           }}
         >
           Colours
@@ -112,6 +142,7 @@ function App() {
           className="card-selection-button"
           onClick={() => {
             changeDict(generalDict);
+            setDictName("All");
           }}
         >
           All
@@ -120,6 +151,7 @@ function App() {
           className="card-selection-button"
           onClick={() => {
             changeDict(practiceDict);
+            setDictName("Practice");
           }}
         >
           Practice
@@ -133,7 +165,13 @@ function App() {
           <p className="tracker-right">{correct}</p>
         </div>
 
-        <Flipper question={question} answer={answer} getNewCard={getRandom} />
+        <Flipper
+          question={question}
+          answer={answer}
+          getNewCard={getRandom}
+          moveToAll={moveToAll}
+          moveToPractice={moveToPractice}
+        />
       </div>
     </div>
   );
