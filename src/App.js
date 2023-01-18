@@ -12,6 +12,7 @@ import { initializeApp } from "firebase/app";
 import * as utilities from "./Utilities/FirestoreUtilities";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import NoteList from "./Components/Notes/NoteList";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBtORfRYLXs3sC1tMviIhUYjM90AfhpgM8",
@@ -24,7 +25,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 function App() {
   //Score counters
@@ -51,6 +52,7 @@ function App() {
 
   useEffect(() => {
     getRandom();
+    // eslint-disable-next-line
   }, [currentDict]);
 
   useEffect(() => {
@@ -223,6 +225,7 @@ function App() {
             Submit
           </Button>
         </Form>
+        <NoteList />
       </div>
     </div>
   );

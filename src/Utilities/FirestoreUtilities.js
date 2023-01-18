@@ -30,6 +30,23 @@ export async function getColoursDict() {
   }
 }
 
+export async function getNotes() {
+  const docRef = await doc(getFirestore(), "translations", "notes");
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    return docSnap.data().notes;
+  } else {
+    return false;
+  }
+}
+
+export async function updateNotes(newNotes) {
+  const docRef = await doc(getFirestore(), "translations", "notes");
+
+  await updateDoc(docRef, { notes: newNotes });
+}
+
 export async function getNumbersDict() {
   const docRef = await doc(getFirestore(), "translations", "numbers");
   const docSnap = await getDoc(docRef);
