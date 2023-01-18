@@ -69,7 +69,7 @@ function NoteList() {
           Submit
         </Button>
       </Form>
-      <Table striped bordered hover size="sm">
+      <Table striped bordered hover size="sm" className="notesTable">
         <thead>
           <tr>
             <th>Phrase</th>

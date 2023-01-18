@@ -5,3 +5,20 @@
   margin-right: auto;
   margin-bottom: 10px;
 }
+
+.notesTable {
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Small devices (screens, 992px and down) */
+@media only screen and (max-width: 990px) {
+  .newNoteForm {
+    display: flex;
+    max-width: 100%;
+  }
+  .notesTable {
+    max-width: 100%;
+  }
+}
