@@ -73,15 +73,18 @@ function App() {
   function getRandom(val) {
     let num = Math.floor(Math.random() * (Object.keys(currentDict).length - 0));
 
+    console.log(prevNums);
+
     while (prevNums.includes(num)) {
+      if (prevNums.length === Object.keys(currentDict).length) break;
       num = Math.floor(Math.random() * (Object.keys(currentDict).length - 0));
-      if (prevNums.length >= Object.keys(currentDict).length) {
-        setPrevNums([]);
-        break;
-      }
     }
 
     setPrevNums([...prevNums, num]);
+
+    if (prevNums.length >= Object.keys(currentDict).length) {
+      setPrevNums([]);
+    }
 
     setQuestion(Object.entries(currentDict)[num][0]);
     setAnswer(Object.entries(currentDict)[num][1]);
