@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  italianDictImp,
+  spanishDictImp,
   practiceDictImp,
   coloursDictImp,
   numbersDictImp,
@@ -12,16 +12,15 @@ import { initializeApp } from "firebase/app";
 import * as utilities from "./Utilities/FirestoreUtilities";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import NoteList from "./Components/Notes/NoteList";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBtORfRYLXs3sC1tMviIhUYjM90AfhpgM8",
-  authDomain: "flashcard-79794.firebaseapp.com",
-  projectId: "flashcard-79794",
-  storageBucket: "flashcard-79794.appspot.com",
-  messagingSenderId: "704397522677",
-  appId: "1:704397522677:web:1b2be225c467ff0c5df7bc",
-  measurementId: "G-B6FBZE6C7E",
+  apiKey: "AIzaSyBZyrgCKVv0OEit9q-k7mP4OfxMvTkWYUY",
+  authDomain: "flashcards-ab8e3.firebaseapp.com",
+  projectId: "flashcards-ab8e3",
+  storageBucket: "flashcards-ab8e3.appspot.com",
+  messagingSenderId: "615720899785",
+  appId: "1:615720899785:web:5380b3f55f4e6025f86918",
+  measurementId: "G-PW9WVQJ15Z",
 };
 
 // Initialize Firebase
@@ -34,14 +33,14 @@ function App() {
   //All previous questions
   const [prevNums, setPrevNums] = useState([]);
   //Current dict in use
-  const [currentDict, setCurrentDict] = useState(italianDictImp);
+  const [currentDict, setCurrentDict] = useState(spanishDictImp);
   const [dictName, setDictName] = useState("All");
   //Current question and answers
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
   //Some more states
-  const [generalDict, setGeneralDict] = useState(italianDictImp);
+  const [generalDict, setGeneralDict] = useState(spanishDictImp);
   const [coloursDict, setColoursDict] = useState(coloursDictImp);
   const [numbersDict, setNumbersDict] = useState(numbersDictImp);
   const [practiceDict, setPracticeDict] = useState(practiceDictImp);
@@ -72,8 +71,6 @@ function App() {
 
   function getRandom(val) {
     let num = Math.floor(Math.random() * (Object.keys(currentDict).length - 0));
-
-    console.log(prevNums);
 
     while (prevNums.includes(num)) {
       if (prevNums.length === Object.keys(currentDict).length) break;
@@ -163,6 +160,7 @@ function App() {
           onClick={() => {
             changeDict(numbersDict);
             setDictName("Numbers");
+            setPrevNums([]);
           }}
         >
           Numbers
@@ -172,6 +170,7 @@ function App() {
           onClick={() => {
             changeDict(coloursDict);
             setDictName("Colours");
+            setPrevNums([]);
           }}
         >
           Colours
@@ -181,6 +180,7 @@ function App() {
           onClick={() => {
             changeDict(generalDict);
             setDictName("All");
+            setPrevNums([]);
           }}
         >
           All
@@ -190,6 +190,7 @@ function App() {
           onClick={() => {
             changeDict(practiceDict);
             setDictName("Practice");
+            setPrevNums([]);
           }}
         >
           Practice
@@ -228,7 +229,6 @@ function App() {
             Submit
           </Button>
         </Form>
-        <NoteList />
       </div>
     </div>
   );

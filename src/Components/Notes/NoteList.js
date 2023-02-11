@@ -13,8 +13,8 @@ function NoteList() {
   const [rowNotes, setRowNotes] = useState("");
 
   useEffect(() => {
-    utilities.getNotes().then((notes) => {
-      setNotes(notes);
+    utilities.getNotes().then((startingNotes) => {
+      setNotes(startingNotes);
     });
   }, []);
 
