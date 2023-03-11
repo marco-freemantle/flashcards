@@ -1,17 +1,15 @@
-export let spanishDictImp = {
-  Hello: "Hola",
+export let koreanDictImp = {
+  Hello: "안녕하세요)",
 };
 
 export let numbersDictImp = {
-  One: "Uno",
+  Hello: "안녕하세요)",
 };
 
 export let coloursDictImp = {
-  Green: "Verde",
+  Hello: "안녕하세요)",
 };
 
 export let practiceDictImp = {
-  Green: "Verde",
-  One: "Uno",
-  Hello: "Hola",
+  Hello: "안녕하세요)",
 };

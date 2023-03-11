@@ -4,7 +4,7 @@ export async function updateAllDicts(newPracticeDict, newGeneralDict) {
   const allRef = doc(getFirestore(), "translations", "all");
   const pracRef = await doc(getFirestore(), "translations", "practice");
 
-  await updateDoc(allRef, { spanishDict: newGeneralDict });
+  await updateDoc(allRef, { koreanDict: newGeneralDict });
   await updateDoc(pracRef, { practiceDict: newPracticeDict });
 }
 
@@ -13,7 +13,7 @@ export async function getAllDict() {
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    return docSnap.data().spanishDict;
+    return docSnap.data().koreanDict;
   } else {
     return false;
   }

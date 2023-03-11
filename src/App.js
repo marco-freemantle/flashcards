@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  spanishDictImp,
+  koreanDictImp,
   practiceDictImp,
   coloursDictImp,
   numbersDictImp,
@@ -33,14 +33,14 @@ function App() {
   //All previous questions
   const [prevNums, setPrevNums] = useState([]);
   //Current dict in use
-  const [currentDict, setCurrentDict] = useState(spanishDictImp);
+  const [currentDict, setCurrentDict] = useState(koreanDictImp);
   const [dictName, setDictName] = useState("All");
   //Current question and answers
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
   //Some more states
-  const [generalDict, setGeneralDict] = useState(spanishDictImp);
+  const [generalDict, setGeneralDict] = useState(koreanDictImp);
   const [coloursDict, setColoursDict] = useState(coloursDictImp);
   const [numbersDict, setNumbersDict] = useState(numbersDictImp);
   const [practiceDict, setPracticeDict] = useState(practiceDictImp);
